@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/song_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/img_holder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                android:layout_marginTop="40dp"
+                app:cardElevation="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                    <ImageView
+                        android:layout_width="350dp"
+                        android:layout_height="350dp"
+                        android:contentDescription="Song Image"
+                        android:src="@drawable/img_1"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/txt_songname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="JAi SHRI RAM"
+                android:textSize="32sp"
+                android:layout_marginTop="12dp"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                app:layout_constraintStart_toStartOf="@+id/img_holder"
+                app:layout_constraintEnd_toEndOf="@+id/img_holder"
+                app:layout_constraintTop_toBottomOf="@id/img_holder"/>
+
+            <TextView
+                android:id="@+id/txt_songsinger"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Arjit Sing"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/img_holder"
+                app:layout_constraintEnd_toEndOf="@+id/img_holder"
+                app:layout_constraintTop_toBottomOf="@id/txt_songname"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/song_content">
+
+                    <Button
+                        android:id="@+id/btn_repeat"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="hi"
+                        android:background="@drawable/baseline_repeat_12"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
