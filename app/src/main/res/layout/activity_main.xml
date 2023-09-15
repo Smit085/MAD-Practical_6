@@ -26,11 +26,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
-                    <ImageView
-                        android:layout_width="350dp"
-                        android:layout_height="350dp"
-                        android:contentDescription="Song Image"
-                        android:src="@drawable/img_1"/>
+                <ImageView
+                    android:layout_width="350dp"
+                    android:layout_height="350dp"
+                    android:contentDescription="Song Image"
+                    android:src="@drawable/img_1"/>
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -57,22 +57,38 @@
                 app:layout_constraintEnd_toEndOf="@+id/img_holder"
                 app:layout_constraintTop_toBottomOf="@id/txt_songname"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/song_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_songsinger"
+                app:layout_constraintBaseline_toBottomOf="parent">
 
-                    <Button
-                        android:id="@+id/btn_repeat"
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="hi"
-                        android:background="@drawable/baseline_repeat_12"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                <Button
+                    android:id="@+id/btn_repeat"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="hi"
+                    android:background="@drawable/baseline_repeat_12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/btn_play"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/baseline_play_circle_12"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
