@@ -27,10 +27,11 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <ImageView
+                    android:id="@+id/img_song"
                     android:layout_width="350dp"
                     android:layout_height="350dp"
                     android:contentDescription="Song Image"
-                    android:src="@drawable/img_1"/>
+                    android:src="@drawable/song_1"/>
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -38,7 +39,7 @@
                 android:id="@+id/txt_songname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="JAi SHRI RAM"
+                android:text=""
                 android:textSize="32sp"
                 android:layout_marginTop="12dp"
                 android:textStyle="bold"
@@ -51,11 +52,20 @@
                 android:id="@+id/txt_songsinger"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Arjit Sing"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/img_holder"
                 app:layout_constraintEnd_toEndOf="@+id/img_holder"
                 app:layout_constraintTop_toBottomOf="@id/txt_songname"/>
+
+            <SeekBar
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/song_content"
+                android:layout_marginTop="20dp"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -66,26 +76,65 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_songsinger"
                 app:layout_constraintBaseline_toBottomOf="parent">
 
-                <Button
+                <ImageButton
                     android:id="@+id/btn_repeat"
-                    android:layout_width="50dp"
+                    android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="hi"
-                    android:background="@drawable/baseline_repeat_12"
+                    android:src="@drawable/baseline_repeat_12"
+                    android:scaleType="fitCenter"
+                    android:backgroundTint="#00000000"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintEnd_toStartOf="@id/btn_prev"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <Button
-                    android:id="@+id/btn_play"
-                    android:layout_width="50dp"
+                <ImageButton
+                    android:id="@+id/btn_prev"
+                    android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/baseline_play_circle_12"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/baseline_skip_previous_12"
+                    android:scaleType="fitCenter"
+                    android:backgroundTint="#00000000"
+                    app:layout_constraintStart_toEndOf="@+id/btn_repeat"
+                    app:layout_constraintEnd_toStartOf="@id/btn_play"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageButton
+                    android:id="@+id/btn_play"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:src="@drawable/baseline_play_circle_12"
+                    android:scaleType="fitCenter"
+                    android:backgroundTint="#00000000"
+                    app:layout_constraintStart_toEndOf="@id/btn_prev"
+                    app:layout_constraintEnd_toStartOf="@id/btn_next"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageButton
+                    android:id="@+id/btn_next"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/baseline_skip_next_12"
+                    android:scaleType="fitCenter"
+                    android:backgroundTint="#00000000"
+                    app:layout_constraintStart_toEndOf="@id/btn_play"
+                    app:layout_constraintEnd_toStartOf="@id/btn_fav"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageButton
+                    android:id="@+id/btn_fav"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/baseline_favorite_12"
+                    android:scaleType="fitCenter"
+                    android:backgroundTint="#00000000"
+                    app:layout_constraintStart_toEndOf="@id/btn_next"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
