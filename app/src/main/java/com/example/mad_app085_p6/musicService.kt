@@ -17,22 +17,21 @@ class musicService: Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        if(!this::mp.isInitialized){
-            val song: Int? = intent.getIntExtra("Song",0)
-            Log.i("song", song.toString())
-            mp = MediaPlayer.create(this,R.raw.song_1)
-            Log.i("created","hi")
+        if (!this::mp.isInitialized) {
+            mp = MediaPlayer.create(this, R.raw.song_1)
+        }
+        else{
+            mp.seekTo(0)
         }
         if(intent!=null){
             val action: String? = intent.getStringExtra("MusicService")
-            if(action == "PlayPause"){
-                if(!mp.isPlaying){
-                    mp.seekTo(0)
-                    mp.start()
-                }
-                else{
-                    mp.pause()
-                }
+            if(action == "Play" && !mp.isPlaying){
+                mp.seekTo(0)
+                mp.start()
+            }
+            else if(action == "Pause" && mp.isPlaying){
+                mp.seekTo(0)
+                mp.pause()
             }
         }
         else{
@@ -40,6 +39,7 @@ class musicService: Service() {
         }
         return START_STICKY
     }
+
     override fun onDestroy() {
         mp.stop()
         super.onDestroy()

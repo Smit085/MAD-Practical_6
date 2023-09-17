@@ -14,12 +14,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        data class Songs(val title: String, val singer: String, val img: Int,val song: Int)
+        data class Songs(val title: String, val singer: String, val img: Int,val song: String)
+//        val song_list: List<Songs> = listOf(
+//            Songs("Jai Shri Ram", "Ajay Atul",R.drawable.song_1,R.raw.song_1),
+//            Songs("Khalasi", "Aditya Gadhvi", R.drawable.song_2, R.raw.song_2),
+//            Songs("Heeriye", "Arijit Singh", R.drawable.song_3, R.raw.song_3),
+//            Songs("Shri Krishna Govind Hare Murari", "Jubin Nautiyal", R.drawable.song_4, R.raw.song_4)
+//        )
         val song_list: List<Songs> = listOf(
-            Songs("Jai Shri Ram", "Ajay Atul", R.drawable.song_1,R.raw.song_1),
-            Songs("Khalasi", "Aditya Gadhvi", R.drawable.song_2, R.raw.song_2),
-            Songs("Heeriye", "Arijit Singh", R.drawable.song_3, R.raw.song_3),
-            Songs("Shri Krishna Govind Hare Murari", "Jubin Nautiyal", R.drawable.song_4, R.raw.song_4)
+            Songs("Jai Shri Ram", "Ajay Atul",R.drawable.song_1, "android.resource://com.example.mad_app085_p6/raw/song_1"),
+            Songs("Khalasi", "Aditya Gadhvi",R.drawable.song_2, "android.resource://com.example.mad_app085_p6/raw/song_2"),
+            Songs("Heeriye", "Arijit Singh",R.drawable.song_3, "android.resource://com.example.mad_app085_p6/raw/song_3"),
+            Songs("Shri Krishna Govind Hare Murari", "Jubin Nautiyal",R.drawable.song_1, "android.resource://com.example.mad_app085_p6/raw/song_4")
         )
 
         val play_btn: ImageButton = findViewById(R.id.btn_play)
@@ -38,30 +44,21 @@ class MainActivity : AppCompatActivity() {
             song_img.setImageResource(song_list[songIndex].img)
         }
 
-        fun songPlay(songIndex:Int){
-            Intent(this,musicService::class.java).putExtra("MusicService","PlayPause").apply{
-                startService(this)
-            }
-            Intent(this,musicService::class.java).putExtra("Song",song_list[songIndex].song).apply{
+        fun songPlay(songIndex:Int,action:String){
+            Intent(this,musicService::class.java).putExtra("MusicService",action).apply{
                 startService(this)
             }
             setContent(songIndex)
         }
 
-        fun song_stop(){
-            Intent(applicationContext,musicService::class.java).putExtra("MusicService","PlayPause").apply{
-                stopService(this)
-            }
-        }
-
         play_btn.setOnClickListener{
             if(!play_state){
-                songPlay(songIndex)
+                songPlay(songIndex,"Play")
                 play_btn.setImageResource(R.drawable.baseline_pause_circle_12)
                 play_state = true
             }
             else{
-                song_stop()
+                songPlay(songIndex,"Pause")
                 play_btn.setImageResource(R.drawable.baseline_play_circle_12)
                 play_state = false
             }
@@ -70,13 +67,17 @@ class MainActivity : AppCompatActivity() {
         btn_next.setOnClickListener{
             val list_len = song_list.size
             songIndex = (songIndex + 1) % list_len
-            songPlay(songIndex)
+            play_btn.setImageResource(R.drawable.baseline_pause_circle_12)
+            play_state = true
+            songPlay(songIndex,"Play")
         }
 
         btn_prev.setOnClickListener {
             val list_len = song_list.size
             songIndex = (songIndex - 1 + list_len) % list_len
-            songPlay(songIndex)
+            play_btn.setImageResource(R.drawable.baseline_pause_circle_12)
+            play_state = true
+            songPlay(songIndex,"Play")
         }
     }
 }
