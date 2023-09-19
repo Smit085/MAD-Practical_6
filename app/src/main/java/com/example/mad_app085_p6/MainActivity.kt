@@ -1,7 +1,6 @@
 package com.example.mad_app085_p6
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -25,18 +24,23 @@ class MainActivity : AppCompatActivity() {
         var songIndex: Int = 0
 
         fun setContent(songIndex:Int){
-            txt_songname.setText(song_list[songIndex].title)
-            txt_songsinger.setText(song_list[songIndex].singer)
+            txt_songname.text = song_list[songIndex].title
+            txt_songsinger.text = song_list[songIndex].singer
             song_img.setImageResource(song_list[songIndex].img)
         }
 
         fun songPlay(songIndex:Int,action:String){
-            Intent(this,musicService::class.java).putExtra("MusicService",action).apply{
-                startService(this)
-            }
-            Intent(this,musicService::class.java).putExtra("Song",songIndex).apply{
-                startService(this)
-            }
+            val playIntent = Intent(this, MusicService::class.java)
+            playIntent.putExtra("MusicService", action)
+            playIntent.putExtra("SongIndex", songIndex)
+            startService(playIntent)
+
+//            Intent(this,MusicService::class.java).putExtra("Song",songIndex).apply{
+//                startService(this)
+//            }
+//            Intent(this,MusicService::class.java).putExtra("MusicService",action).apply{
+//                startService(this)
+//            }
             setContent(songIndex)
         }
 

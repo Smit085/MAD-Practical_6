@@ -5,10 +5,9 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.IBinder
 import android.util.Log
-import android.widget.TextView
-import kotlin.math.log
+import kotlin.properties.Delegates
 
-class musicService: Service() {
+class MusicService: Service() {
 
     lateinit var mp: MediaPlayer
 
@@ -17,31 +16,41 @@ class musicService: Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+        var pausedAt = 0
         if (!this::mp.isInitialized) {
-            val songIndex = intent.getIntExtra("Song", -1)
+            val songIndex = intent.getIntExtra("SongIndex", -1)
             if (songIndex != -1) {
-                // Use the resource ID to access the song
-                val mediaPlayer = MediaPlayer.create(this, song_list[songIndex].song)
-
-                // Now you can play the song or perform other actions with it
-                mediaPlayer.start()
+                Log.i("Song=",songIndex.toString())
+                mp = MediaPlayer.create(this, song_list[songIndex].song)
+                mp.start()
             }
             else{
-                Log.i("HEllo","Hi")
+                Log.i("SongIndexError","1")
                 mp = MediaPlayer.create(this, R.raw.song_1)
+                mp.start()
             }
         }
         else{
-            mp.seekTo(0)
+            mp.stop()
+            val songIndex = intent.getIntExtra("SongIndex", -1)
+            if (songIndex != -1) {
+                Log.i("Song=",songIndex.toString())
+                mp = MediaPlayer.create(this, song_list[songIndex].song)
+                mp.start()
+            }
+            else{
+                Log.i("SongIndexError","1")
+                mp = MediaPlayer.create(this, R.raw.song_1)
+                mp.start()
+            }
         }
         if(intent!=null){
             val action: String? = intent.getStringExtra("MusicService")
             if(action == "Play" && !mp.isPlaying){
-                mp.seekTo(0)
-                mp.start()
+                mp.seekTo(pausedAt)
             }
             else if(action == "Pause" && mp.isPlaying){
-                mp.seekTo(0)
+                pausedAt = mp.currentPosition
                 mp.pause()
             }
         }
@@ -53,6 +62,7 @@ class musicService: Service() {
 
     override fun onDestroy() {
         mp.stop()
+        mp.release()
         super.onDestroy()
     }
 }
