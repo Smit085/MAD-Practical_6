@@ -18,7 +18,18 @@ class musicService: Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         if (!this::mp.isInitialized) {
-            mp = MediaPlayer.create(this, R.raw.song_1)
+            val songIndex = intent.getIntExtra("Song", -1)
+            if (songIndex != -1) {
+                // Use the resource ID to access the song
+                val mediaPlayer = MediaPlayer.create(this, song_list[songIndex].song)
+
+                // Now you can play the song or perform other actions with it
+                mediaPlayer.start()
+            }
+            else{
+                Log.i("HEllo","Hi")
+                mp = MediaPlayer.create(this, R.raw.song_1)
+            }
         }
         else{
             mp.seekTo(0)

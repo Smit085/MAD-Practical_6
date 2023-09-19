@@ -14,20 +14,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        data class Songs(val title: String, val singer: String, val img: Int,val song: String)
-//        val song_list: List<Songs> = listOf(
-//            Songs("Jai Shri Ram", "Ajay Atul",R.drawable.song_1,R.raw.song_1),
-//            Songs("Khalasi", "Aditya Gadhvi", R.drawable.song_2, R.raw.song_2),
-//            Songs("Heeriye", "Arijit Singh", R.drawable.song_3, R.raw.song_3),
-//            Songs("Shri Krishna Govind Hare Murari", "Jubin Nautiyal", R.drawable.song_4, R.raw.song_4)
-//        )
-        val song_list: List<Songs> = listOf(
-            Songs("Jai Shri Ram", "Ajay Atul",R.drawable.song_1, "android.resource://com.example.mad_app085_p6/raw/song_1"),
-            Songs("Khalasi", "Aditya Gadhvi",R.drawable.song_2, "android.resource://com.example.mad_app085_p6/raw/song_2"),
-            Songs("Heeriye", "Arijit Singh",R.drawable.song_3, "android.resource://com.example.mad_app085_p6/raw/song_3"),
-            Songs("Shri Krishna Govind Hare Murari", "Jubin Nautiyal",R.drawable.song_1, "android.resource://com.example.mad_app085_p6/raw/song_4")
-        )
-
         val play_btn: ImageButton = findViewById(R.id.btn_play)
         val btn_next: ImageButton = findViewById(R.id.btn_next)
         val btn_prev: ImageButton = findViewById(R.id.btn_prev)
@@ -46,6 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         fun songPlay(songIndex:Int,action:String){
             Intent(this,musicService::class.java).putExtra("MusicService",action).apply{
+                startService(this)
+            }
+            Intent(this,musicService::class.java).putExtra("Song",songIndex).apply{
                 startService(this)
             }
             setContent(songIndex)
