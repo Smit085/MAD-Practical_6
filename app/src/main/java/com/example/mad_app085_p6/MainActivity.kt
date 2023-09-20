@@ -3,13 +3,9 @@ package com.example.mad_app085_p6
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.SeekBar
 import android.widget.TextView
-import androidx.core.widget.doOnTextChanged
-import kotlin.concurrent.timer
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         val txt_songsinger: TextView = findViewById(R.id.txt_songsinger)
         val song_img: ImageView = findViewById(R.id.img_song)
         val btn_fav: ImageView = findViewById(R.id.btn_fav)
-        val seek_songbar:SeekBar = findViewById(R.id.seek_songbar)
-        val txt_songduration:TextView = findViewById(R.id.txt_songduration)
 
         txt_songname.isSelected = true
         var play_state = false
@@ -38,18 +32,15 @@ class MainActivity : AppCompatActivity() {
         }
         setContent(0)
         fun songPlay(songIndex:Int,action:String){
-            Intent(this,MusicService::class.java).putExtra("MusicService",action).apply{
-                startService(this)
-            }
-            Intent(this,MusicService::class.java).putExtra("SongIndex",songIndex).apply{
-                startService(this)
-            }
+            val playIntent = Intent(this, MusicService::class.java)
+            playIntent.putExtra("SongIndex", songIndex)
+            playIntent.putExtra("MusicService", action)
+            startService(playIntent)
             setContent(songIndex)
         }
         play_btn.setOnClickListener{
             if(!play_state){
                 songPlay(songIndex,"Play")
-                txt_songduration.text = intent.getIntExtra("song_duration",0).toString()
                 play_btn.setImageResource(R.drawable.baseline_pause_circle_12)
                 play_state = true
             }
@@ -86,7 +77,5 @@ class MainActivity : AppCompatActivity() {
                 fav_state = 0
             }
         }
-
-
     }
 }
