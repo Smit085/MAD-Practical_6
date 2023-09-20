@@ -40,10 +40,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="32sp"
-                android:layout_marginTop="12dp"
+                android:textSize="28sp"
+                android:layout_marginTop="12sp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:fadingEdge="horizontal"
+                android:marqueeRepeatLimit="marquee_forever"
                 app:layout_constraintStart_toStartOf="@+id/img_holder"
                 app:layout_constraintEnd_toEndOf="@+id/img_holder"
                 app:layout_constraintTop_toBottomOf="@id/img_holder"/>
@@ -59,15 +63,35 @@
                 app:layout_constraintTop_toBottomOf="@id/txt_songname"/>
 
             <SeekBar
-                android:id="@+id/slider"
-                android:layout_width="match_parent"
+                android:id="@+id/seek_songbar"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/song_content"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintStart_toStartOf="@+id/img_holder"
+                app:layout_constraintEnd_toEndOf="@+id/img_holder"
+                app:layout_constraintTop_toBottomOf="@id/txt_songname"
+                app:layout_constraintBottom_toTopOf="@id/mp_controls"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0:00"
+                android:layout_marginLeft="15dp"
+                app:layout_constraintStart_toStartOf="@id/seek_songbar"
+                app:layout_constraintTop_toBottomOf="@id/seek_songbar"/>
+
+            <TextView
+                android:id="@+id/txt_songduration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0:00"
+                android:layout_marginRight="15dp"
+                app:layout_constraintEnd_toEndOf="@id/seek_songbar"
+                app:layout_constraintTop_toBottomOf="@id/seek_songbar"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mp_controls"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -128,7 +152,7 @@
                     android:id="@+id/btn_fav"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/baseline_favorite_12"
+                    android:src="@drawable/baseline_favorite_green_12"
                     android:scaleType="fitCenter"
                     android:backgroundTint="#00000000"
                     app:layout_constraintStart_toEndOf="@id/btn_next"

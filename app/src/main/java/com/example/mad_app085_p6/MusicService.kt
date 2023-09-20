@@ -5,6 +5,8 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.IBinder
 import android.util.Log
+import java.util.TimerTask
+import kotlin.concurrent.timer
 import kotlin.properties.Delegates
 
 class MusicService: Service() {
@@ -16,7 +18,6 @@ class MusicService: Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        var pausedAt = 0
         if (!this::mp.isInitialized) {
             val songIndex = intent.getIntExtra("SongIndex", -1)
             if (songIndex != -1) {
@@ -39,19 +40,20 @@ class MusicService: Service() {
                 mp.start()
             }
             else{
-                Log.i("SongIndexError","1")
                 mp = MediaPlayer.create(this, R.raw.song_1)
                 mp.start()
             }
         }
+
         if(intent!=null){
+            var pausedAt = 0
             val action: String? = intent.getStringExtra("MusicService")
-            if(action == "Play" && !mp.isPlaying){
-                mp.seekTo(pausedAt)
-            }
-            else if(action == "Pause" && mp.isPlaying){
+            if(action == "Pause" && mp.isPlaying){
                 pausedAt = mp.currentPosition
                 mp.pause()
+            }
+            else if(action == "Play" && !mp.isPlaying){
+                mp.seekTo(pausedAt)
             }
         }
         else{
